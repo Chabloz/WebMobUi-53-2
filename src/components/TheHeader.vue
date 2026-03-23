@@ -12,7 +12,6 @@
 <template>
   <header>
     <h1>Title</h1>
-    <a href="#t">test</a>
     <BaseButton @click="switchTheme" :label="theme" type="info"/>
   </header>
 </template>

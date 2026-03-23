@@ -6,7 +6,7 @@
 
   const tempKelvin = defineModel('kelvin', {
     get: () => {
-      return (temperatureSi.value).toFixed(2);
+      return temperatureSi.value;
     },
     set: (val) => {
       temperatureSi.value = Number(val);
@@ -15,7 +15,7 @@
 
   const tempCelcius = defineModel('celcius', {
     get: () => {
-      return (temperatureSi.value - 273.15).toFixed(2);
+      return temperatureSi.value - 273.15;
     },
     set: (val) => {
       temperatureSi.value = Number(val) + 273.15;
@@ -25,13 +25,21 @@
 
 <template>
   <TheHeader />
-  <div>Kelvin: {{ tempKelvin }}</div>
-  <BaseInputNumber label="°C" v-model="tempCelcius" />
-  <BaseInputNumber label="K" v-model="tempKelvin" />
+  <main>
+    <BaseInputNumber label="°C" v-model="tempCelcius" />
+    <BaseInputNumber label="K" v-model="tempKelvin" />
+  </main>
 </template>
 
 <style>
  a {
   color: tomato;
+ }
+ * {
+  padding: 0;
+  margin: 0;
+ }
+ main {
+  padding: 1em;
  }
 </style>
