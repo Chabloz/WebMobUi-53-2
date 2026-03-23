@@ -1,33 +1,50 @@
 <script setup>
-  import { ref, watch } from 'vue';
+  import { ref, watch, computed } from 'vue';
   import TheHeader from './components/TheHeader.vue';
-  import BaseButton from './components/BaseButton.vue';
+  import BaseInputNumber from './components/BaseInputNumber.vue';
 
-  const email = defineModel('email');
+  // const email = defineModel('email');
 
-  watch(email, (newEmail) => {
-    if (newEmail == "admin@example.com") {
-      email.value = "";
+  // watch(email, (newEmail) => {
+  //   if (newEmail == "admin@example.com") {
+  //     email.value = "";
+  //   }
+
+  // });
+
+  const temperatureSi = ref(0.1 + 0.2); // Kelvin
+
+  const tempKelvin = defineModel({
+    get: () => {
+      return (temperatureSi.value).toFixed(2);
+    },
+    set: (val) => {
+      temperatureSi.value = Number(val);
     }
-
   });
 
-  const temperature = ref(25)
-  console.log(temperature.value);
+  setTimeout(() => {
+    tempKelvin.value = 200;
+  }, 3000)
 
-  setInterval(() => {
-    temperature.value += 1
-  }, 1000)
+  const tempCelcius = computed(() => {
+    return (temperatureSi.value - 273.15).toFixed(2);
+  })
+
+
+
+  // console.log(temperature.value);
+
+  // setInterval(() => {
+  //   temperature.value += 1
+  // }, 1000)
 </script>
 
 <template>
   <TheHeader />
-  <h1>test</h1>
-  <BaseButton label="warning" type="warning"/>
-  <!-- <input  @input="email=this.value()" :value="email" type="email" placeholder="email..."/> -->
-  <input v-model="email" type="email" placeholder="email..."/>
-  {{  email }}
-  <p>Temperature: {{  temperature }}</p>
+  <div>Kelvin: {{ tempKelvin }}</div>
+  <BaseInputNumber label="°C" v-model="tempCelcius" />
+  <BaseInputNumber label="K" v-model="tempKelvin" />
 </template>
 
 <style>
