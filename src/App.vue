@@ -6,13 +6,13 @@
   import Temperature from './pages/Temperature.vue';
   import { useHashRoute } from './composables/useHashRoute';
 
-  const routes = {
-    '#home': {label: 'Home', component: Home},
-    '#temperature': {label: 'Temperature', component: Temperature},
-  }
+  const routes = [
+    {hash: '#home', component: Home},
+    {hash: '#temperature', component: Temperature},
+  ]
 
-  const { currentPage } = useHashRoute(routes);
-  console.log(currentPage.value);
+  const { currentComponent, currentRoute, navigateTo } = useHashRoute(routes);
+
 
   const temperatureSi = ref(0.1 + 0.2); // Kelvin
 
@@ -38,10 +38,15 @@
 </script>
 
 <template>
-  <TheHeader />
+  <TheHeader title="Hello World" id="main-title">
+    T<span>E</span>ST
+    <TheHeader>SUB HEADER</TheHeader>
+  </TheHeader>
   <main>
-    <Home v-if="currentPage === 'home'" />
-    <Temperature  v-if="currentPage === 'temperature'"/>
+    <!-- <Home v-if="currentPage === 'home'" />
+    <Temperature  v-if="currentPage === 'temperature'"/> -->
+
+    <component :is="currentComponent"/>
     <!-- <BaseInputNumber label="°C" v-model="tempCelcius" />
     <BaseInputNumber label="K" v-model="tempKelvin" /> -->
   </main>

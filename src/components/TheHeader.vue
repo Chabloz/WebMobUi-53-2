@@ -1,17 +1,22 @@
 <script setup>
   import { ref } from 'vue';
   import BaseButton from './BaseButton.vue';
+  import { useJsonStorage } from '../composables/useJsonStorage';
 
-  const theme = ref('light');
+  const { val : theme} = useJsonStorage('prefix:theme', 'light');
 
   function switchTheme() {
     theme.value = theme.value === 'light' ? 'dark' : 'light';
   }
+
+  defineProps({
+    title: String
+  })
 </script>
 
 <template>
   <header>
-    <h1>Title</h1>
+    <h1>{{ title }} <slot></slot></h1>
     <BaseButton @click="switchTheme" :label="theme" type="info"/>
   </header>
 </template>
