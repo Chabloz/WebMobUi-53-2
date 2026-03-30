@@ -1,4 +1,4 @@
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import { computed, onBeforeUnmount, onMounted, shallowRef } from 'vue';
 
 function normalizeHash(hash) {
   return hash.startsWith('#') ? hash : `#${hash}`;
@@ -9,7 +9,7 @@ function normalizeHash(hash) {
  */
 export function useHashRoute(routes) {
   const defaultRoute = routes[0];
-  const currentRoute = ref(defaultRoute);
+  const currentRoute = shallowRef(defaultRoute);
 
   function getRouteByHash(hash) {
     const normalizedHash = normalizeHash(hash || defaultRoute.hash);

@@ -1,12 +1,15 @@
 <script setup>
   import { ref } from 'vue';
   import TheHeader from './components/TheHeader.vue';
-  import BaseInputNumber from './components/BaseInputNumber.vue';
+
   import Home from './pages/Home.vue';
   import Temperature from './pages/Temperature.vue';
+  import Schedule from './pages/Schedule.vue';
+
   import { useHashRoute } from './composables/useHashRoute';
 
   const routes = [
+    {hash: '#schedule', component: Schedule},
     {hash: '#home', component: Home},
     {hash: '#temperature', component: Temperature},
   ]
@@ -14,41 +17,15 @@
   const { currentComponent, currentRoute, navigateTo } = useHashRoute(routes);
 
 
-  const temperatureSi = ref(0.1 + 0.2); // Kelvin
-
-
-  const tempKelvin = defineModel('kelvin', {
-    get: () => {
-      return temperatureSi.value;
-    },
-    set: (val) => {
-      temperatureSi.value = Number(val);
-    }
-  });
-
-  const tempCelcius = defineModel('celcius', {
-    get: () => {
-      return temperatureSi.value - 273.15;
-    },
-    set: (val) => {
-      temperatureSi.value = Number(val) + 273.15;
-    }
-  });
 
 </script>
 
 <template>
   <TheHeader title="Hello World" id="main-title">
-    T<span>E</span>ST
-    <TheHeader>SUB HEADER</TheHeader>
+    WebMobUI
   </TheHeader>
   <main>
-    <!-- <Home v-if="currentPage === 'home'" />
-    <Temperature  v-if="currentPage === 'temperature'"/> -->
-
     <component :is="currentComponent"/>
-    <!-- <BaseInputNumber label="°C" v-model="tempCelcius" />
-    <BaseInputNumber label="K" v-model="tempKelvin" /> -->
   </main>
 </template>
 

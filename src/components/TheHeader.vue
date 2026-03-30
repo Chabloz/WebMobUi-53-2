@@ -1,5 +1,4 @@
 <script setup>
-  import { ref } from 'vue';
   import BaseButton from './BaseButton.vue';
   import { useJsonStorage } from '../composables/useJsonStorage';
 
@@ -16,7 +15,7 @@
 
 <template>
   <header>
-    <h1>{{ title }} <slot></slot></h1>
+    <h1><slot></slot></h1>
     <BaseButton @click="switchTheme" :label="theme" type="info"/>
   </header>
 </template>

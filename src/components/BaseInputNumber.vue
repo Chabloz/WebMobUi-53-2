@@ -10,7 +10,7 @@
 
   const formatted = computed({
     get: () => roundToDecimal(model.value),
-    set: (val) => model.value = val,
+    set: (val) => model.value = parseFloat(val),
   });
 </script>
 
